@@ -1,0 +1,157 @@
+ <!DOCTYPE html>
+    <html lang="tr">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Google</title>
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          text-align: center;
+          background-color: #ffffff;
+        }
+        .google-logo {
+          margin-top: 150px;
+        }
+        .search-box {
+          position: relative;
+          display: inline-block;
+        }
+        input[type="text"] {
+          width: 550px;
+          height: 40px;
+          padding: 10px;
+          font-size: 16px;
+          border: 1px solid #dfe1e5;
+          border-radius: 24px;
+          outline: none;
+          box-shadow: 0px 1px 6px rgba(32, 33, 36, 0.28);
+          margin-top: 20px;
+        }
+        .suggestions {
+          width: 550px;
+          text-align: left;
+          border: 1px solid #dfe1e5;
+          border-top: none;
+          border-radius: 0 0 24px 24px;
+          background-color: white;
+          box-shadow: 0px 1px 6px rgba(32, 33, 36, 0.28);
+          display: none;
+          position: absolute;
+          top: 60px;
+          z-index: 1;
+          left: 0;
+        }
+        .suggestions div {
+          padding: 10px;
+          cursor: pointer;
+        }
+        .suggestions div:hover {
+          background-color: #f1f1f1;
+        }
+        .buttons {
+          margin-top: 20px;
+        }
+        .search-button {
+          background-color: #f8f9fa;
+          border: 1px solid #f8f9fa;
+          padding: 10px 20px;
+          font-size: 14px;
+          color: #3c4043;
+          margin: 10px;
+          border-radius: 4px;
+          cursor: pointer;
+          outline: none;
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+        .search-button:hover {
+          background-color: #e8e9ea;
+        }
+        .footer {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          font-size: 12px;
+          color: #70757a;
+          background-color: #f2f2f2;
+          padding: 15px 0;
+        }
+        .result {
+          font-size: 24px;
+          color: red;
+          font-weight: bold;
+          margin-top: 30px;
+        }
+        .heart {
+          color: #e25555;
+          font-size: 50px;
+        }
+        .google-logo img {
+          width: 272px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="google-logo">
+        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo">
+      </div>
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Google'da arama yap..." onfocus="showSuggestions()" oninput="updateSuggestions()">
+        <div class="suggestions" id="suggestions-box">
+        </div>
+        <div class="buttons">
+          <button class="search-button" onclick="showResult()">Google'da Ara</button>
+          <button class="search-button" onclick="showResult()">Kendimi Şanslı Hissediyorum!</button>
+        </div>
+      </div>
+      <div class="result" id="result"></div>
+      <div class="footer">
+        <span>Advertising</span> · <span>Business</span> · <span>How Search works</span> · <span>Privacy</span> · <span>Terms</span> · <span>Settings</span>
+      </div>
+      <script>
+        const suggestions = [
+          "Yiğit harika biri!",
+          "Yiğit çok zeki ve yetenekli.",
+          "Yiğit'in programlama bilgisi muazzam.",
+          "Yiğit, en iyi partner!",
+          "Yiğit sevgi dolu ve anlayışlı.",
+          "Yiğit her zaman neşelidir.",
+          "Yiğit herkese ilham veriyor."
+        ];
+        function showSuggestions() {
+          document.getElementById('suggestions-box').style.display = 'block';
+          updateSuggestions();
+        }
+        function updateSuggestions() {
+          const searchQuery = document.getElementById('search').value.toLowerCase();
+          const suggestionsBox = document.getElementById('suggestions-box');
+          suggestionsBox.innerHTML = '';
+          suggestions.forEach(suggestion => {
+            if (suggestion.toLowerCase().includes(searchQuery)) {
+              const suggestionElement = document.createElement('div');
+              suggestionElement.textContent = suggestion;
+              suggestionElement.onclick = () => {
+                document.getElementById('search').value = suggestion;
+                suggestionsBox.style.display = 'none';
+              };
+              suggestionsBox.appendChild(suggestionElement);
+            }
+          });
+        }
+        function showResult() {
+          var searchQuery = document.getElementById('search').value;
+          if (searchQuery) {
+            document.getElementById('result').innerHTML = `Yiğit hacking işlerini seviyor <3`;
+          }
+        }
+        document.addEventListener('click', function(event) {
+          const suggestionsBox = document.getElementById('suggestions-box');
+          if (!event.target.closest('.search-box')) {
+            suggestionsBox.style.display = 'none';
+          }
+        });
+      </script>
+    </body>
+    </html>
